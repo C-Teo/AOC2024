@@ -1,4 +1,5 @@
 use crate::utils::read_input;
+use crate::utils::log::log;
 use std::cmp::Ordering;
 
 enum Order {
