@@ -1,10 +1,10 @@
-use crate::utils::read_input;
 use crate::utils::log::log;
+use crate::utils::read_input;
 use std::cmp::Ordering;
 
 enum Order {
     INC,
-    DEC
+    DEC,
 }
 
 pub fn part_one() -> i32 {
@@ -12,7 +12,11 @@ pub fn part_one() -> i32 {
     let mut res: i32 = 0;
 
     for record in input {
-        res += if record.len() < 2 {1} else {helper(&record, 1, None)};
+        res += if record.len() < 2 {
+            1
+        } else {
+            helper(&record, 1, None)
+        };
     }
 
     res
@@ -20,25 +24,31 @@ pub fn part_one() -> i32 {
 
 fn helper(vec: &Vec<i32>, index: usize, mut order: Option<Order>) -> i32 {
     if index == vec.len() {
-        return 1
+        return 1;
     }
 
-    if (vec[index] - vec[index - 1]).abs() > 3 {return 0}
-    
+    if (vec[index] - vec[index - 1]).abs() > 3 {
+        return 0;
+    }
+
     match &order {
-        Some(ord) => {
-            match ord {
-                Order::DEC => if vec[index] >= vec[index - 1] {return 0},
-                Order::INC => if vec[index] <= vec[index - 1] {return 0}
+        Some(ord) => match ord {
+            Order::DEC => {
+                if vec[index] >= vec[index - 1] {
+                    return 0;
+                }
             }
-        } 
-        None => {
-            match vec[0].cmp(&vec[1]) {
-                Ordering::Less => order = Some(Order::INC),
-                Ordering::Equal => return 0,
-                Ordering::Greater => order = Some(Order::DEC)
+            Order::INC => {
+                if vec[index] <= vec[index - 1] {
+                    return 0;
+                }
             }
-        }
+        },
+        None => match vec[0].cmp(&vec[1]) {
+            Ordering::Less => order = Some(Order::INC),
+            Ordering::Equal => return 0,
+            Ordering::Greater => order = Some(Order::DEC),
+        },
     }
 
     helper(vec, index + 1, order)
@@ -54,7 +64,7 @@ fn input() -> Vec<Vec<i32>> {
             .split(" ")
             .filter_map(|char| char.parse().ok())
             .collect();
-    
+
         res.push(report);
     }
 
