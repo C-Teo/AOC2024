@@ -2,5 +2,5 @@ mod solutions;
 mod utils;
 
 fn main() {
-    solutions::day01::solve();
+    println!("{:?}", solutions::day01::part_two());
 }
