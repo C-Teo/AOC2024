@@ -57,6 +57,76 @@ pub fn part_one() -> i32 {
     res
 }
 
+pub fn part_two() -> i32 {
+    let input: String = input();
+
+    let mut res: i32 = 0;
+    let mut index: usize = 0;
+    let mut flag: bool = true;
+
+    while index < input.len() {
+        if index + 7 < input.len() && &input[index..index + 7] == "don't()" {
+            flag = false;
+            index += 7;
+        }
+
+        if index + 4 < input.len() && &input[index..index + 4] == "do()" {
+            flag = true;
+            index += 4;
+        }
+
+        if index + 4 < input.len() {
+            if &input[index..index + 4] != "mul(" {
+                index += 1;
+                continue;
+            }
+        } else {
+            break;
+        }
+        index += 4;
+
+        let val1: i32;
+        match parse_num(&input, index) {
+            Ok((value, idx)) => {
+                val1 = value;
+                index = idx;
+            }
+            Err(idx) => {
+                index = idx;
+                continue;
+            }
+        }
+
+        if &input[index..=index] != "," {
+            continue;
+        }
+        index += 1;
+
+        let val2: i32;
+        match parse_num(&input, index) {
+            Ok((value, idx)) => {
+                val2 = value;
+                index = idx;
+            }
+            Err(idx) => {
+                index = idx;
+                continue;
+            }
+        }
+
+        if &input[index..=index] != ")" {
+            continue;
+        }
+        index += 1;
+
+        if flag {
+            res += val1 * val2;
+        }
+    }
+
+    res
+}
+
 fn parse_num(input: &str, mut index: usize) -> Result<(i32, usize), usize> {
     let idx: usize = index;
 
