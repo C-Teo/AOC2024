@@ -11,4 +11,5 @@ fn main() {
     day03::part_one();
     day03::part_two();
     log(&day04::part_one());
+    log(&day04::part_two());
 }
