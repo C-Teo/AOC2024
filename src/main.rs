@@ -1,6 +1,6 @@
 mod solutions;
 mod utils;
-use solutions::{day01, day02, day03, day04};
+use solutions::{day01, day02, day03, day04, day05};
 use utils::log::log;
 
 fn main() {
@@ -12,4 +12,5 @@ fn main() {
     day03::part_two();
     log(&day04::part_one());
     log(&day04::part_two());
+    log(&day05::part_one());
 }
